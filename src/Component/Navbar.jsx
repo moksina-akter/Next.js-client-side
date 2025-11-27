@@ -1,37 +1,128 @@
+"use client";
+
 import Link from "next/link";
-// import { usePathname } from "next/navigation";
-// import { useEffect, useState } from "react";
-// import { auth } from "@/firebase.config";
-// import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useState, useEffect } from "react";
+
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "@/firebase.init";
 
 export default function Navbar() {
-  //   const pathname = usePathname();
-  //   const [open, setOpen] = useState(false);
-  //   const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  //   useEffect(() => {
-  //     const unsub = onAuthStateChanged(auth, (currentUser) => {
-  //       setUser(currentUser);
-  //     });
-  //     return () => unsub();
-  //   }, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
 
-  //   const handleLogout = async () => {
-  //     await signOut(auth);
-  //   };
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
+  const routes = [
+    { name: "Home", href: "/" },
+    { name: "Products", href: "/products" },
+    { name: "Add Product", href: "/add-product" },
+    { name: "Manage Product", href: "/manage-products" },
+  ];
 
   return (
-    <div className="bg-base-100 shadow-sm sticky top-0 z-50">
-      <div className="navbar w-10/12 mx-auto">
-        {/* Navbar Start */}
-        <div className="navbar-start">
-          {/* Mobile Toggle */}
-          <div className="dropdown">
+    <nav className="bg-white shadow-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16 items-center">
+          {/* Logo */}
+          <div className="flex items-center space-x-6">
+            <Link href="/" className="text-[#EE6983] font-bold text-2xl">
+              ProductHub
+            </Link>
+
+            {/* Desktop Links */}
+            <div className="hidden lg:flex space-x-4">
+              {routes.map((route) => (
+                <Link
+                  key={route.name}
+                  href={route.href}
+                  className="hover:text-[#EE6983] transition"
+                >
+                  {route.name}
+                </Link>
+              ))}
+
+              {user && (
+                <>
+                  <Link
+                    href="/add-product"
+                    className="hover:text-[#EE6983] transition"
+                  >
+                    Add Product
+                  </Link>
+                  <Link
+                    href="/manage-products"
+                    className="hover:text-[#EE6983] transition"
+                  >
+                    Manage Products
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Right Side */}
+          <div className="flex items-center space-x-3">
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <div className="w-10 rounded-full">
+                    <img
+                      src={user.photoURL || "/default-avatar.png"}
+                      alt="User avatar"
+                    />
+                  </div>
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-white rounded-box w-52 mt-3"
+                >
+                  <li className="font-semibold">
+                    {user.displayName || "User"}
+                  </li>
+                  <li className="text-sm">{user.email}</li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="text-red-500 hover:bg-red-50 rounded w-full text-left px-2 py-1"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="btn btn-sm bg-green-500 text-white hover:bg-[#EE6983] transition"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600 transition"
+                >
+                  Register
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="lg:hidden flex items-center">
             <button
-              className="btn btn-ghost lg:hidden"
-              onClick={() => setOpen(!open)}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-2 rounded-md hover:bg-gray-100 transition"
             >
-              {/* Hamburger Icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -47,116 +138,55 @@ export default function Navbar() {
                 />
               </svg>
             </button>
-            {/* Mobile Menu */}
-            {/* {open && ( */}
-            <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box w-52 mt-3 p-2 shadow z-10">
-              <li>
-                <Link
-                  href="/"
-                  className={pathname === "/" ? "text-green-500" : ""}
-                  onClick={() => setOpen(false)}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products"
-                  className={pathname === "/products" ? "text-green-500" : ""}
-                  onClick={() => setOpen(false)}
-                >
-                  Products
-                </Link>
-              </li>
-              {/* Show only when logged in */}
-              {/* {user && ( */}
-              <>
-                <li>
-                  <Link href="/add-product" onClick={() => setOpen(false)}>
-                    Add Product
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/manage-products" onClick={() => setOpen(false)}>
-                    Manage Products
-                  </Link>
-                </li>
-              </>
-              {/* )} */}
-            </ul>
-            {/* )} */}
           </div>
-
-          {/* Logo */}
-          <Link href="/" className="text-green-500 font-bold text-xl ml-2">
-            ProductHub
-          </Link>
         </div>
+      </div>
 
-        {/* Desktop Menu */}
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-5">
-            <li>
-              <Link
-                href="/"
-                className={pathname === "/" ? "text-green-500" : ""}
-              >
-                Home
-              </Link>
-            </li>
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-white shadow-md">
+          {routes.map((route) => (
+            <Link
+              key={route.name}
+              href={route.href}
+              className="block px-4 py-2 hover:bg-gray-50"
+            >
+              {route.name}
+            </Link>
+          ))}
 
-            <li>
-              <Link
-                href="/products"
-                className={pathname === "/products" ? "text-green-500" : ""}
-              >
-                Products
-              </Link>
-            </li>
-
-            {user && (
-              <>
-                <li>
-                  <Link href="/add-product">Add Product</Link>
-                </li>
-                <li>
-                  <Link href="/manage-products">Manage Products</Link>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
-
-        {/* Navbar End (Right Side Buttons + User Profile) */}
-        <div className="navbar-end gap-3">
-          {user ? (
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0} className="btn btn-ghost">
-                <img src={user.photoURL} className="w-8 h-8 rounded-full" />
-              </label>
-
-              <ul className="dropdown-content menu p-3 bg-base-100 rounded-box w-52 shadow z-10">
-                <li className="font-semibold">{user.displayName}</li>
-                <li className="text-sm">{user.email}</li>
-                <li>
-                  <button onClick={handleLogout} className="text-red-600">
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : (
+          {user && (
             <>
-              <Link href="/login" className="btn bg-green-500 text-white">
+              <Link
+                href="/add-product"
+                className="block px-4 py-2 hover:bg-gray-50"
+              >
+                Add Product
+              </Link>
+              <Link
+                href="/manage-products"
+                className="block px-4 py-2 hover:bg-gray-50"
+              >
+                Manage Products
+              </Link>
+            </>
+          )}
+
+          {!user && (
+            <>
+              <Link href="/login" className="block px-4 py-2 hover:bg-gray-50">
                 Login
               </Link>
-              <Link href="/register" className="btn bg-blue-500 text-white">
+              <Link
+                href="/register"
+                className="block px-4 py-2 hover:bg-gray-50"
+              >
                 Register
               </Link>
             </>
           )}
         </div>
-      </div>
-    </div>
+      )}
+    </nav>
   );
 }
