@@ -7,13 +7,13 @@ export default function Banner() {
     <div
       className="relative bg-green-100 flex items-center justify-center min-h-[70vh] px-6 text-center"
       style={{
-        backgroundImage: "url('/products.jpg')",
+        backgroundImage: "url('/header-img2.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <div className="bg-white/70 p-8 rounded-lg shadow-lg max-w-2xl">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#EE6983]">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-green-600">
           Welcome to ProductHub
         </h1>
         <p className="text-lg md:text-xl text-gray-700 mb-6">

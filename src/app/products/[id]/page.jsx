@@ -15,7 +15,7 @@ export default function ProductDetails() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
       if (!currentUser) {
-        router.push("/login"); // redirect to login if not logged in
+        router.push("/login");
       } else {
         setUser(currentUser);
       }
@@ -57,7 +57,7 @@ export default function ProductDetails() {
           {/* Meta Info */}
           <div className="space-y-2 text-gray-800">
             <p>
-              <span className="font-semibold">Price:</span>{" "}
+              <span className="font-semibold">Price:</span>
               <span className="text-red-500">${product.price}</span>
             </p>
             <button

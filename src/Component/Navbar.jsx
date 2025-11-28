@@ -24,8 +24,8 @@ export default function Navbar() {
   const routes = [
     { name: "Home", href: "/" },
     { name: "Products", href: "/products" },
-    { name: "Add Product", href: "/add-product" },
-    { name: "Manage Product", href: "/manage-products" },
+    // { name: "Add Product", href: "/add-product" },
+    // { name: "Manage Product", href: "/manage-products" },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <div className="flex items-center space-x-6">
-            <Link href="/" className="text-[#EE6983] font-bold text-2xl">
+            <Link href="/" className="text-green-600 font-bold text-2xl">
               ProductHub
             </Link>
 

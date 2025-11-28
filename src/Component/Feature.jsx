@@ -48,7 +48,7 @@ export default function Features() {
 
   return (
     <section className="py-20 bg-gray-50 text-center">
-      <h2 className="text-3xl font-bold mb-12">Our Features</h2>
+      <h2 className="text-3xl text-green-600 font-bold mb-12">Our Features</h2>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {features.map((feature, idx) => (
           <div

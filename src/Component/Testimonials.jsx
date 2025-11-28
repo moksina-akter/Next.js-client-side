@@ -40,7 +40,9 @@ export default function Testimonials() {
 
   return (
     <section className="py-20 bg-green-50 text-center">
-      <h2 className="text-3xl font-bold mb-12">What Our Customers Say</h2>
+      <h2 className="text-3xl text-green-600 font-bold mb-12">
+        What Our Customers Say
+      </h2>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {testimonials.map((t, idx) => (
           <div

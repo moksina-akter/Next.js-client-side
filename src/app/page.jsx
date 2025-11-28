@@ -2,7 +2,6 @@ import Banner from "@/Component/Banner";
 import Features from "@/Component/Feature";
 import Products from "@/Component/Products";
 import Testimonials from "@/Component/Testimonials";
-// import Image from "next/image";
 
 export default function Home() {
   return (

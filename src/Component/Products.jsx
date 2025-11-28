@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  // console.log(products);
 
   useEffect(() => {
     fetch("https://product-hub-two.vercel.app/products")
@@ -11,6 +12,11 @@ export default function Products() {
       .then((data) => setProducts(data.slice(0, 6)))
       .catch((err) => console.log("Fetch error:", err));
   }, []);
+
+  if (products.length === 0) {
+    return <p className="text-center py-10">Loading products...</p>;
+  }
+
   return (
     <div>
       <section className="px-6 py-12 w-10/12 mx-auto">
