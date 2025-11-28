@@ -48,6 +48,3 @@ A simple product management web application built with **Next.js (App Router)**,
 
 ---
 
-## Installation & Setup
-
-Live URL: https://next-js-client-side-tau.vercel.app/
