@@ -42,17 +42,18 @@ export default function ProductDetails() {
       <div className="grid md:grid-cols-2 gap-8 items-start">
         {/* Large Image / Banner */}
         <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-[400px] object-cover rounded shadow"
+          src={product.imageUrl}
+          alt={product.title}
+          className="w-full h-[360px] object-cover rounded shadow"
         />
 
         {/* Product Info */}
         <div>
           <h1 className="text-4xl font-bold text-green-500 mb-4">
-            {product.name}
+            {product.title}
           </h1>
-          <p className="text-gray-700 mb-4">{product.description}</p>
+          <p className="text-gray-700 mb-4">{product.shortDescription}</p>
+          <p className="text-gray-700 mb-4">{product.fullDescription}</p>
 
           {/* Meta Info */}
           <div className="space-y-2 text-gray-800">

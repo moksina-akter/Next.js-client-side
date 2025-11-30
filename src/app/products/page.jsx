@@ -7,7 +7,7 @@ export default function Products() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("https://product-hub-two.vercel.app/products")
+    fetch("https://next-js-server-side.vercel.app/products")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.log("Fetch error:", err));
@@ -48,13 +48,16 @@ export default function Products() {
             className="border border-green-600 hover:scale-105 transition transform rounded-lg p-4 shadow hover:shadow-lg space-y-3"
           >
             <img
-              src={p.image}
-              alt={p.name}
+              src={p.imageUrl}
+              alt={p.title}
               className="h-[250px] w-full object-cover rounded"
             />
             <h3 className="font-bold text-green-500 text-lg mt-2">{p.name}</h3>
             <p className="text-gray-600 text-sm line-clamp-2">
-              {p.description}
+              {p.shortDescription}
+            </p>
+            <p className="text-gray-600 text-sm line-clamp-2">
+              {p.fullDescription}
             </p>
             <p className="font-semibold mt-1">
               Price: <span className="text-red-500">${p.price}</span>

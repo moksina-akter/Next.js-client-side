@@ -67,11 +67,14 @@ export default function AddProduct() {
     //   setError(err.message);
     // }
     try {
-      const res = await fetch("https://product-hub-two.vercel.app/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        "https://next-js-server-side.vercel.app/products",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to add product");
 
@@ -174,7 +177,7 @@ export default function AddProduct() {
           <input
             type="text"
             name="image"
-            value={form.image}
+            value={form.imageUrl}
             onChange={handleChange}
             placeholder="Image URL (optional)"
             className="input input-bordered w-full"

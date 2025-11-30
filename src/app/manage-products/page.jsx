@@ -86,12 +86,12 @@ export default function ManageProducts() {
                 <td>{p.id}</td>
                 <td>
                   <img
-                    src={p.image}
-                    alt={p.name}
+                    src={p.imageUrl}
+                    alt={p.title}
                     className="h-16 w-16 object-cover rounded"
                   />
                 </td>
-                <td>{p.name}</td>
+                <td>{p.title}</td>
                 <td>${p.price}</td>
                 <td className="space-x-2">
                   <button
